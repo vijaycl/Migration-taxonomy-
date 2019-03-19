@@ -1,0 +1,33 @@
+id: custom_article_migration_with_terms
+label: 'Custom article migration with terms'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      page_id: 1
+      title: 'Page 1 title'
+      term_id: 1
+    -
+      page_id: 2
+      title: 'Page 2 title'
+      term_id: 2
+    - 
+      page_id: 3
+      title: 'Page 3 title'
+      term_id: 3
+  ids:
+    page_id:
+      type: integer
+process:
+  nid: page_id
+  title: title
+  field_tags:
+    plugin: migration_lookup
+    migration: custom_term_migration
+    source: term_id
+destination:
+  plugin: entity:node
+  default_bundle: article
+migration_dependencies:
+  required:
+    - custom_term_migration
